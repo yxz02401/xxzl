@@ -1,0 +1,111 @@
+列表 a=[1,23,3,6]  a.append(6)  a[] 可变 
+元组 b=()  tuple(a)  list(b)	    不可变 不可增删改
+字典 c={"name":"LILIN",}c[name]		键值对
+
+正则表达式
+ 	match 	开头
+	search	中间
+	findall 所有的
+	三种爬取页面数据方法
+	1、beautifulsoup
+	2、正则
+	3、lxml
+	示例：
+# -*- coding: utf-8 -*-
+import re
+from urllib.request import urlopen
+from urllib.request import Request
+from bs4 import BeautifulSoup
+from lxml import etree
+
+#添加模拟浏览器协议头
+headers = {'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}
+url = "http://sou.zhaopin.com/jobs/searchresult.ashx?jl=%E5%8C%97%E4%BA%AC&kw=python&sm=0&p=1"
+req_timeout = 5
+req = Request(url=url,headers=headers)
+f = urlopen(req,None,req_timeout)
+s = f.read()
+s = s.decode('utf-8')
+
+ss = str(s)
+
+#lxml提取
+selector = etree.HTML(ss)
+links = selector.xpath('//tr/td[@class="zwmc"]/div/a/@href|//tr/td[@class="zwmc"]/div/a/text()')
+for link in links:
+	print(link)
+'''
+#beautifulsoup提取
+soup = BeautifulSoup(ss,'html.parser')
+aList = soup.find_all("tr")
+for item in aList:
+	aList1 = item.find_all("a")
+	for item1 in aList1:
+		print(item1.get('href'))
+		print(item1.get_text())
+		break
+	#print(item)
+	#print(item.get('href'))
+	#print(item.get_text())
+'''
+
+#正则提取
+'''
+mm = re.findall('<div style="width: 224px;*width: 218px; _width:200px; float: left"><a style=\"font-weight: bold\" par=\"(.*)\" href=\"(.*)\" target=\"_blank\">(.*)</a>',ss)
+
+print(mm)
+'''
+
+
+函数
+	传值  	只改变给你的	
+	传址	都改变
+函数装饰器（语法糖）
+记录 分析页面停留时间 人群
+
+
+
+
+d=[{},{},{}]
+
+define定义
+def 自定义名:
+    dsadasfaf
+
+lilin_name="李林"
+lilin_age=21000
+tall=1.8
+
+%s 字符串   ""    print("我的名字叫%s %04d  %.4f  %%" (%name,%age,%tall))0021  1.8000
+
+遍历
+
+for 自定义 in a:
+    print(自定义)
+
+
+循环     逻辑运算符：and   or    not
+age=20
+while age>10 not age=18 ：
+    print("年满18可以进网吧")
+    age=age-1
+
+lilin_name
+
+
+
+分支语句
+age=20
+if age>=7：
+    print("年满7上学")
+elif age>=12:
+    print("年满12上chuzhong")
+else：
+     print("你还小"*50)
+
+
+
+
+
+
+zzz=[1,23,3,6]   aaa=[2,5,4]    bbb=aaa+zzz
